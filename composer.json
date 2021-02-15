@@ -1,0 +1,20 @@
+{
+  "name": "rikkicom/call2fa",
+  "description": "This is a client for the Rikkicom's Call2FA service",
+  "version": "1.0.0",
+  "keywords": [
+    "calls",
+    "call2factor",
+    "verification"
+  ],
+  "license": "MIT",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "6.5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rikkicom\\Call2FA\\": "src/"
+    }
+  }
+}
