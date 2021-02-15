@@ -7,7 +7,7 @@ This is a library you can use for Rikkicom's service called Call2FA (a call as t
 Just install from Packagist:
 
 ```
-composer install rikkicom/call2fa
+composer require rikkicom/call2fa
 ```
 
 You can find an example in the `examples` folder.
