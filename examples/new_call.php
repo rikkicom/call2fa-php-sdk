@@ -18,7 +18,7 @@ try {
     $client = new Client($login, $password);
 
     // Make a call
-    $client->call($callTo);
+    $client->call($callTo, $callbackURL);
 
     echo "Wait the call!";
 } catch (ClientException $e) {
