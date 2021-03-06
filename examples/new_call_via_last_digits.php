@@ -11,14 +11,14 @@ $password = '***';
 
 // Configuration for this call
 $callTo = '+380631010121';
-$callbackURL = 'http://example.com';
+$poolID = '4';
 
 try {
     // Create the Call2FA client
     $client = new Client($login, $password);
 
     // Make a call
-    $result = $client->call($callTo, $callbackURL);
+    $result = $client->callViaLastDigits($callTo, $poolID);
 
     print_r($result);
 
@@ -28,6 +28,8 @@ try {
 
     (
         [call_id] => 112
+        [number] => 0443561427
+        [code] => 1427
     )
 
     */

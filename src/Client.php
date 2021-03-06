@@ -55,6 +55,8 @@ class Client
      * @param string $phoneNumber
      * @param string $callbackURL
      *
+     * @return mixed
+     *
      * @throws ClientException
      */
     public function call($phoneNumber, $callbackURL = '')
@@ -81,6 +83,52 @@ class Client
             if ($statusCode !== 201) {
                 throw new ClientException(sprintf('Incorrect status code: %d on call step', $statusCode));
             }
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            throw new ClientException(sprintf('Cannot perform a request on call step: %s', $e->getMessage()));
+        }
+    }
+
+    /**
+     * Initiate a new call via the last digits mode
+     *
+     * @param string $phoneNumber
+     * @param string $poolID
+     *
+     * @return mixed
+     *
+     * @throws ClientException
+     */
+    public function callViaLastDigits($phoneNumber, $poolID)
+    {
+        if (empty($phoneNumber)) {
+            throw new ClientException('the phoneNumber parameter is empty');
+        }
+
+        if (empty($poolID)) {
+            throw new ClientException('the poolID parameter is empty');
+        }
+
+        $headers = [
+            'Authorization' => sprintf('Bearer %s', $this->jwt),
+        ];
+
+        $callData = [
+            'phone_number' => $phoneNumber,
+        ];
+
+        $uri = $this->makeFullURI(sprintf('pool/%s/call', $poolID));
+
+        try {
+            $response = $this->httpClient->request('POST', $uri, ['json' => $callData, 'headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode !== 201) {
+                throw new ClientException(sprintf('Incorrect status code: %d on call step', $statusCode));
+            }
+
+            return json_decode($response->getBody()->getContents(), true);
         } catch (GuzzleException $e) {
             throw new ClientException(sprintf('Cannot perform a request on call step: %s', $e->getMessage()));
         }
