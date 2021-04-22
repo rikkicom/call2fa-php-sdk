@@ -135,6 +135,57 @@ class Client
     }
 
     /**
+     * Initiate a new call with the code
+     *
+     * @param string $phoneNumber
+     * @param string $code
+     * @param string $lang
+     *
+     * @return mixed
+     *
+     * @throws ClientException
+     */
+    public function callWithCode($phoneNumber, $code, $lang)
+    {
+        if (empty($phoneNumber)) {
+            throw new ClientException('the phoneNumber parameter is empty');
+        }
+
+        if (empty($code)) {
+            throw new ClientException('the code parameter is empty');
+        }
+
+        if (empty($lang)) {
+            throw new ClientException('the lang parameter is empty');
+        }
+
+        $headers = [
+            'Authorization' => sprintf('Bearer %s', $this->jwt),
+        ];
+
+        $callData = [
+            'phone_number' => $phoneNumber,
+            'code' => $code,
+            'lang' => $lang,
+        ];
+
+        $uri = $this->makeFullURI('code/call');
+
+        try {
+            $response = $this->httpClient->request('POST', $uri, ['json' => $callData, 'headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode !== 201) {
+                throw new ClientException(sprintf('Incorrect status code: %d on call step', $statusCode));
+            }
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            throw new ClientException(sprintf('Cannot perform a request on call step: %s', $e->getMessage()));
+        }
+    }
+
+    /**
      * Receive the JSON Web Token from the API
      *
      * @throws ClientException
