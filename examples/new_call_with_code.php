@@ -11,7 +11,7 @@ $password = '';
 
 // Configuration for this call
 $callTo = '+380631010121';
-$code = '2346';
+$code = '2310w';
 $lang = 'uk'; // uk or ru
 
 try {
