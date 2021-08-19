@@ -16,7 +16,7 @@ try {
     // Create the Call2FA client
     $client = new Client($login, $password);
 
-    // Make a call
+    // Get call info
     $result = $client->info($id);
 
     print_r($result);
