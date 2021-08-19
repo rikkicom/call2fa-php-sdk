@@ -186,6 +186,41 @@ class Client
     }
 
     /**
+     * Get information about a call by its identifier
+     *
+     * @param string $id
+     *
+     * @return mixed
+     *
+     * @throws ClientException
+     */
+    public function info($id)
+    {
+        if (empty($id)) {
+            throw new ClientException('the id parameter is empty');
+        }
+
+        $headers = [
+            'Authorization' => sprintf('Bearer %s', $this->jwt),
+        ];
+
+        $uri = $this->makeFullURI(sprintf('call/%s', $id));
+
+        try {
+            $response = $this->httpClient->request('GET', $uri, ['headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode !== 200) {
+                throw new ClientException(sprintf('Incorrect status code: %d', $statusCode));
+            }
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            throw new ClientException(sprintf('Cannot perform a request to get the call info: %s', $e->getMessage()));
+        }
+    }
+
+    /**
      * Receive the JSON Web Token from the API
      *
      * @throws ClientException
