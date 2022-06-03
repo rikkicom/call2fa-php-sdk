@@ -95,12 +95,13 @@ class Client
      *
      * @param string $phoneNumber
      * @param string $poolID
+     * @param bool   $useSixDigits
      *
      * @return mixed
      *
      * @throws ClientException
      */
-    public function callViaLastDigits($phoneNumber, $poolID)
+    public function callViaLastDigits($phoneNumber, $poolID, $useSixDigits = false)
     {
         if (empty($phoneNumber)) {
             throw new ClientException('the phoneNumber parameter is empty');
@@ -118,7 +119,11 @@ class Client
             'phone_number' => $phoneNumber,
         ];
 
-        $uri = $this->makeFullURI(sprintf('pool/%s/call', $poolID));
+        if ($useSixDigits) {
+            $uri = $this->makeFullURI(sprintf('pool/%s/call/six-digits', $poolID));
+        } else {
+            $uri = $this->makeFullURI(sprintf('pool/%s/call', $poolID));
+        }
 
         try {
             $response = $this->httpClient->request('POST', $uri, ['json' => $callData, 'headers' => $headers]);
