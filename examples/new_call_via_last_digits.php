@@ -18,7 +18,8 @@ try {
     $client = new Client($login, $password);
 
     // Make a call
-    $result = $client->callViaLastDigits($callTo, $poolID);
+    $result = $client->callViaLastDigits($callTo, $poolID); // the code has 4 digits
+    // $result = $client->callViaLastDigits($callTo, $poolID, true); // the code has 6 digits
 
     print_r($result);
 
