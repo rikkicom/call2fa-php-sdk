@@ -10,7 +10,7 @@
   "license": "MIT",
   "type": "library",
   "require": {
-    "guzzlehttp/guzzle": "6.5.5",
+    "guzzlehttp/guzzle": "*",
     "ext-json": "*"
   },
   "autoload": {
