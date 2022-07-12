@@ -1,7 +1,7 @@
 {
   "name": "rikkicom/call2fa",
   "description": "This is a client for the Rikkicom's Call2FA service",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "keywords": [
     "calls",
     "call2factor",
