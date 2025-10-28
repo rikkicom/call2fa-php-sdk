@@ -1,7 +1,6 @@
 {
   "name": "rikkicom/call2fa",
   "description": "This is a client for the Rikkicom's Call2FA service",
-  "version": "1.0.5",
   "keywords": [
     "calls",
     "call2factor",
@@ -10,12 +9,21 @@
   "license": "MIT",
   "type": "library",
   "require": {
-    "guzzlehttp/guzzle": "*",
+    "php": ">=8.2",
+    "guzzlehttp/guzzle": "^7.0",
     "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
       "Rikkicom\\Call2FA\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Rikkicom\\Call2FA\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.4"
   }
 }
