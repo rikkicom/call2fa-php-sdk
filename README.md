@@ -193,10 +193,12 @@ $data = json_decode($json);
 // - error_info: Error details ("busy" if declined, "no_answer" if no answer, empty if successful)
 // - ivr_answer: The digit pressed by the user (1-9)
 
-if (empty($data->error_info)) {
-    echo "Call successful! User pressed: " . $data->ivr_answer;
-} else {
-    echo "Call failed: " . $data->error_info;
+if ($data !== null) {
+    if (empty($data->error_info)) {
+        echo "Call successful! User pressed: " . $data->ivr_answer;
+    } else {
+        echo "Call failed: " . $data->error_info;
+    }
 }
 ```
 
