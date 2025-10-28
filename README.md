@@ -22,7 +22,7 @@ A PHP library for Rikkicom's Call2FA service - a phone call-based two-factor aut
 
 - 🔐 **Two-Factor Authentication** via phone calls
 - 📞 **Multiple Call Types**: Standard calls, calls with verification codes, and last-digit verification
-- 🌍 **Multi-language Support**: Ukrainian language support for voice messages
+- 🌍 **Multi-language Support**: Ukrainian language support for voice messages and others
 - 🔄 **Callback Integration**: Receive real-time updates on call status
 - 📊 **Call Information Retrieval**: Query detailed information about completed calls
 - ⚡ **Simple API**: Easy-to-use interface with comprehensive error handling
