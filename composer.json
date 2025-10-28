@@ -10,6 +10,7 @@
   "license": "MIT",
   "type": "library",
   "require": {
+    "php": ">=8.2",
     "guzzlehttp/guzzle": "*",
     "ext-json": "*"
   },
