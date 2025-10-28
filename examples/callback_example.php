@@ -30,6 +30,16 @@ $json = file_get_contents('php://input');
 // Decode the JSON into a PHP object
 $data = json_decode($json);
 
+// Check if JSON decoding was successful
+if (json_last_error() !== JSON_ERROR_NONE) {
+    // Invalid JSON received - log the error and return error response
+    error_log('Call2FA callback: Invalid JSON received - ' . json_last_error_msg());
+    http_response_code(400);
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON']);
+    exit;
+}
+
 // The $data object contains three important fields:
 //
 // 1. call_id (string/int): 
@@ -119,4 +129,5 @@ if ($data !== null) {
 // Return a success response to Call2FA
 // It's good practice to respond with HTTP 200 to acknowledge receipt
 http_response_code(200);
+header('Content-Type: application/json');
 echo json_encode(['status' => 'received']);
