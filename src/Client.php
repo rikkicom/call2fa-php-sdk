@@ -28,10 +28,11 @@ class Client
      *
      * @param string $login
      * @param string $password
+     * @param \GuzzleHttp\Client|null $httpClient Optional HTTP client for testing
      *
      * @throws ClientException
      */
-    public function __construct($login, $password)
+    public function __construct($login, $password, $httpClient = null)
     {
         if (empty($login)) {
             throw new ClientException('the login parameter is empty');
@@ -44,7 +45,7 @@ class Client
         $this->apiLogin = $login;
         $this->apiPassword = $password;
 
-        $this->httpClient = new \GuzzleHttp\Client();
+        $this->httpClient = $httpClient ?: new \GuzzleHttp\Client();
 
         $this->receiveJWT();
     }
