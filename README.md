@@ -112,7 +112,7 @@ $result = $client->callWithCode($phoneNumber, $code, $lang);
 **Parameters:**
 - `$phoneNumber` (string, required): The phone number to call
 - `$code` (string, required): The verification code to be read (e.g., '2310')
-- `$lang` (string, required): Language for voice message ('uk' for Ukrainian, 'ru' for Russian)
+- `$lang` (string, required): Language for voice message ('uk' for Ukrainian)
 
 ### Call via Last Digits
 
