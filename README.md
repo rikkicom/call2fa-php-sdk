@@ -1,9 +1,5 @@
 # PHP SDK for Call2FA
 
-[![Latest Version](https://img.shields.io/packagist/v/rikkicom/call2fa.svg)](https://packagist.org/packages/rikkicom/call2fa)
-[![License](https://img.shields.io/packagist/l/rikkicom/call2fa.svg)](https://packagist.org/packages/rikkicom/call2fa)
-[![PHP Version](https://img.shields.io/packagist/php-v/rikkicom/call2fa.svg)](https://packagist.org/packages/rikkicom/call2fa)
-
 A PHP library for Rikkicom's Call2FA service - a phone call-based two-factor authentication solution that adds an extra layer of security to your authorization pipeline.
 
 ## Table of Contents
@@ -21,13 +17,12 @@ A PHP library for Rikkicom's Call2FA service - a phone call-based two-factor aut
 - [Error Handling](#error-handling)
 - [Examples](#examples)
 - [Documentation](#documentation)
-- [License](#license)
 
 ## Features
 
 - 🔐 **Two-Factor Authentication** via phone calls
 - 📞 **Multiple Call Types**: Standard calls, calls with verification codes, and last-digit verification
-- 🌍 **Multi-language Support**: Ukrainian and Russian language support for voice messages
+- 🌍 **Multi-language Support**: Ukrainian language support for voice messages
 - 🔄 **Callback Integration**: Receive real-time updates on call status
 - 📊 **Call Information Retrieval**: Query detailed information about completed calls
 - ⚡ **Simple API**: Easy-to-use interface with comprehensive error handling
@@ -255,7 +250,3 @@ php new_call.php
 - [Official Documentation (English)](https://api.rikkicom.io/docs/en/call2fa/)
 - [Documentation (Ukrainian)](https://api.rikkicom.io/docs/uk/call2fa/)
 - [Documentation (Russian)](https://api.rikkicom.io/docs/ru/call2fa/)
-
-## License
-
-This library is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
