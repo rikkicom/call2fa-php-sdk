@@ -32,7 +32,7 @@ A PHP library for Rikkicom's Call2FA service - a phone call-based two-factor aut
 
 ## Requirements
 
-- PHP 7.0 or higher
+- PHP 8.3 or higher
 - ext-json extension
 - Composer for dependency management
 - Valid Call2FA API credentials (login and password)
