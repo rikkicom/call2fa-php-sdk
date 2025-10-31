@@ -212,6 +212,79 @@ class ClientTest extends TestCase
         $this->assertArrayHasKey('call_id', $result);
     }
 
+    public function testCallWithGatewayNameThrowsExceptionWhenPhoneNumberIsEmpty(): void
+    {
+        $client = $this->createMockedClient();
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('the phoneNumber parameter is empty');
+
+        $client->callWithGatewayName('', 'http://callback.url', 'gateway-name', '12345');
+    }
+
+    public function testCallWithGatewayNameThrowsExceptionWhenGatewayNameIsEmpty(): void
+    {
+        $client = $this->createMockedClient();
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('the gatewayName parameter is empty');
+
+        $client->callWithGatewayName('+380631010121', 'http://callback.url', '', '12345');
+    }
+
+    public function testCallWithGatewayNameThrowsExceptionWhenCallFromIsEmpty(): void
+    {
+        $client = $this->createMockedClient();
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('the callFrom parameter is empty');
+
+        $client->callWithGatewayName('+380631010121', 'http://callback.url', 'gateway-name', '');
+    }
+
+    public function testCallWithGatewayNameWithValidParameters(): void
+    {
+        // Mock responses
+        $mock = new MockHandler([
+            // Auth response
+            new Response(200, [], json_encode(['jwt' => 'test-jwt-token'])),
+            // Call response
+            new Response(201, [], json_encode([
+                'call_id' => '12345',
+                'gateway_name' => 'gateway-name',
+                'call_from' => '12345'
+            ])),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = $this->createMockedClient($handlerStack);
+
+        $result = $client->callWithGatewayName('+380631010121', 'http://callback.url', 'gateway-name', '12345');
+
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('call_id', $result);
+        $this->assertSame('gateway-name', $result['gateway_name']);
+    }
+
+    public function testCallWithGatewayNameThrowsExceptionOnIncorrectStatusCode(): void
+    {
+        // Mock responses
+        $mock = new MockHandler([
+            // Auth response
+            new Response(200, [], json_encode(['jwt' => 'test-jwt-token'])),
+            // Call response with wrong status code
+            new Response(400, [], json_encode(['error' => 'Bad request'])),
+        ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = $this->createMockedClient($handlerStack);
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('Cannot perform a request on call step:');
+
+        $client->callWithGatewayName('+380631010121', 'http://callback.url', 'gateway-name', '12345');
+    }
+
     public function testInfoThrowsExceptionWhenIdIsEmpty(): void
     {
         $client = $this->createMockedClient();
