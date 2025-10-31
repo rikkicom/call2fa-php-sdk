@@ -1,5 +1,7 @@
 # PHP SDK for Call2FA
 
+[![Tests](https://github.com/rikkicom/call2fa-php-sdk/actions/workflows/tests.yml/badge.svg)](https://github.com/rikkicom/call2fa-php-sdk/actions/workflows/tests.yml)
+
 A PHP library for Rikkicom's Call2FA service - a phone call-based two-factor authentication solution that adds an extra layer of security to your authorization pipeline.
 
 ## Table of Contents
