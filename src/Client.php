@@ -192,6 +192,59 @@ class Client
     }
 
     /**
+     * Initiate a new call with the code via gateway name
+     *
+     * @param string $phoneNumber
+     * @param string $callbackURL
+     * @param string $gatewayName
+     * @param string $callFrom
+     *
+     * @return mixed
+     *
+     * @throws ClientException
+     */
+    public function callWithGatewayName($phoneNumber, $callbackURL, $gatewayName, $callFrom)
+    {
+        if (empty($phoneNumber)) {
+            throw new ClientException('the phoneNumber parameter is empty');
+        }
+
+        if (empty($gatewayName)) {
+            throw new ClientException('the gatewayName parameter is empty');
+        }
+
+        if (empty($callFrom)) {
+            throw new ClientException('the callFrom parameter is empty');
+        }
+
+        $headers = [
+            'Authorization' => sprintf('Bearer %s', $this->jwt),
+        ];
+
+        $callData = [
+            'phone_number' => $phoneNumber,
+            'callback_url' => $callbackURL,
+            'gateway_name' => $gatewayName,
+            'call_from' => $callFrom,
+        ];
+
+        $uri = $this->makeFullURI('call/with/gateway-name');
+
+        try {
+            $response = $this->httpClient->request('POST', $uri, ['json' => $callData, 'headers' => $headers]);
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode !== 201) {
+                throw new ClientException(sprintf('Incorrect status code: %d on call step', $statusCode));
+            }
+
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (GuzzleException $e) {
+            throw new ClientException(sprintf('Cannot perform a request on call step: %s', $e->getMessage()));
+        }
+    }
+
+    /**
      * Get information about a call by its identifier
      *
      * @param string $id
